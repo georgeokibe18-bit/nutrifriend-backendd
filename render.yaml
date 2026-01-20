@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: nutrifriend-api
+    env: docker
+    plan: starter
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nutrifriend-db
+          property: connectionString
+
+databases:
+  - name: nutrifriend-db
+    plan: starter
